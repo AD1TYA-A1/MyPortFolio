@@ -3,4 +3,9 @@
   background-image: url('/gray.jpg');
   background-size: contain;
   background-position: center;
+.main {
+  /* background-color: rgb(19, 18, 18); */
+  background-image: url('/gray.jpg');
+  background-size: contain;
+  background-position: center;
 }
