@@ -164,7 +164,7 @@ export default function Home() {
         pauseOnHover
         theme="light"
       />
-      <div className="main md:h-[3800px] h-[2600px] bg-red-700 text-white text-2xl">
+      <div className="main md:h-[3600px] h-[2600px] bg-red-700 text-white text-2xl">
         <Navbar />
         <Index />
         <About />
