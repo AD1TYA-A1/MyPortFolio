@@ -11,7 +11,6 @@ const Portfolio = () => {
             images: [
                 "GetChai/Home.jpeg",
                 "GetChai/Auth.jpeg",
-                "GetChai/Dashboard.jpeg",
                 "GetChai/Profile.jpeg",
                 "GetChai/PaymentPage.jpeg",
                 "GetChai/Payment.jpeg",
