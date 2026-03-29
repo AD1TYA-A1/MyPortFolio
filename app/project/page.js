@@ -41,10 +41,10 @@ const Portfolio = () => {
             id: "PassManager",
             title: "Pass Manager 🔐",
             images: [
-                "PassOp/edit.jpeg",
-                "PassOp/copy.jpeg",
-                "PassOp/delete.jpeg",
-                "PassOp/saving.jpeg",
+                "PassOP/edit.jpeg",
+                "PassOP/copy.jpeg",
+                "PassOP/delete.jpeg",
+                "PassOP/saving.jpeg",
             ],
             features: [
                 "Secure Password Storage",
