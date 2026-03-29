@@ -11,7 +11,7 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className=" flex items-center justify-evenly bg-black  sticky top-0  w-full z-50    lg:bg-black h-16 lg:h-32 ">
+    <nav className=" flex items-center justify-evenly bg-black/50  fixed top-0  w-full z-50    lg:bg-black/50 h-16 lg:h-32 rounded-2xl ">
       <script src="https://cdn.lordicon.com/lordicon.js"></script>
       <div className="about">
         {" "}
