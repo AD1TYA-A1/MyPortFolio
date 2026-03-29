@@ -25,12 +25,12 @@ const Index = () => {
       transform: `translateY(${scrollFactor}px) scale(${scale})`,
       opacity: opacity,
       transition: "all 0.1s ease-out",
-    };  
+    };
   };
 
   return (
     <>
-      <div className="lg:h-[80vh] h-[40vh] flex red border-2-center flex-col lg:w-[30075]  pt-22 lg:gap-12">
+      <div className="lg:h-[80vh] h-[40vh] flex flex-col w-full pt-22 lg:gap-12"> 
         <script src="https://cdn.lordicon.com/lordicon.js"></script>
         <div className="text-[10px] text-yellow-500 font-bold lg:text-[20px]  flex items-center justify-center">
           Step into the Mind Of
@@ -61,10 +61,10 @@ const Index = () => {
             <lord-icon
               src="https://cdn.lordicon.com/sgqurkre.json"
               trigger="loop"
-                className="w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] "
+              className="w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] "
             ></lord-icon>
             <div className=" text-[10px] w-16 lg:w-28 text-center lg:text-[16px] ">
-            We fly <div>We fly high</div>
+              We fly <div>We fly high</div>
             </div>
           </div>
         </div>
