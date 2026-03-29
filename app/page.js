@@ -164,7 +164,7 @@ export default function Home() {
         pauseOnHover
         theme="light"
       />
-      <div className="main md:h-[3600px] h-[2600px] bg-red-700 text-white text-2xl overflow-x-hidden">
+      <div className="main min-h-screen bg-red-700 text-white text-2xl overflow-x-hidden pt-20 lg:pt-28">
         <Navbar />
         <Index />
         <About />
@@ -332,17 +332,21 @@ export default function Home() {
 
         <div className="w-[90vw] bg-zinc-700 rounded-4xl h-[1px] md:mt-40 mt-20 md:mb-20 mb-10 flex justify-center items-center m-auto"></div>
 
-        {/* Contact Section with Animations */}
-        <div ref={contactRef} className=" contact w-full h-[380px] md:[600px] pt-10 flex">
-          <div className="conInputs md:w-[60%] w-[50%] h-full gap-10 flex items-center justify-center flex-col">
+        {/* Contact Section */}
+        <div ref={contactRef} className="contact w-full py-10 px-4 flex flex-col lg:flex-row gap-10">
+
+          {/* Form Side */}
+          <div className="conInputs w-full lg:w-[60%] flex flex-col items-center gap-6">
+
             <div
-              className="mt-5 md:text-3xl text-[16px] border-5 md:tracking-[6px] tracking-[3px] md:w-72 w-36 font-bold md:h-16 h-8 flex items-center justify-center"
+              className="text-xl sm:text-2xl lg:text-3xl border-5 tracking-[4px] lg:tracking-[6px] w-36 sm:w-48 lg:w-72 font-bold h-10 lg:h-16 flex items-center justify-center"
               style={getContactAnimationStyle(0)}
             >
               CONTACT
             </div>
+
             <div
-              className="md:text-[15px] text-[10px]  font-bold text-gray-400 relative bottom-5"
+              className="text-xs sm:text-sm lg:text-[15px] font-bold text-gray-400"
               style={getContactAnimationStyle(50)}
             >
               Just drop your details we will reach you!!
@@ -350,128 +354,97 @@ export default function Home() {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="relative -top-15 md:top-0 form mt-10 border-red-700 flex flex-col gap-5 items-center w-full h-90"
+              className="flex flex-col gap-5 items-center w-full max-w-lg"
               style={getContactAnimationStyle(100)}
             >
-              <div className="flex items-center justify-center w-[90%]">
-                <span className="md:text-[12px] text-[6px] md:w-25 w-20 flex items-center justify-center font-bold text-indigo-400 ">
-                  First Name:
-                </span>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="md:h-[30px] h-[15px] md:w-[170px] w-[60px] bg-zinc-700 placeholder:md:px-4 md:px-4 px-2 focus:outline-3 focus:outline-purple-500 md:text-[14px] text-[6px] rounded-2xl placeholder:font-bold font-bold"
-                  {...register("fName", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                    minLength: { value: 3, message: "Min length is 3" },
-                    maxLength: { value: 8, message: "Max length is 8" },
-                  })}
-                />
-                {errors.fName && (
-                  <div className="text-red-500 text-[10px] flex items-center justify-center pl-3">
-                    {errors.fName.message}
-                  </div>
-                )}
-                <span className="  md:text-[12px] text-[6px] md:w-25 w-20 flex items-center justify-center font-bold text-indigo-400">
-                  Last Name:
-                </span>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="md:h-[30px] h-[15px] md:w-[170px] w-[50px] bg-zinc-700 placeholder:md:px-4 md:px-4 px-2 focus:outline-3 focus:outline-purple-500 md:text-[14px] text-[6px] rounded-2xl placeholder:font-bold font-bold"
-                  {...register("lName", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                    minLength: { value: 3, message: "Min length is 3" },
-                    maxLength: { value: 8, message: "Max length is 8" },
-                  })}
-                />
-                {errors.lName && (
-                  <div className="text-red-500 text-[10px] flex items-center justify-center pl-3">
-                    {errors.lName.message}
-                  </div>
-                )}
+              {/* First + Last Name */}
+              <div className="flex flex-col sm:flex-row gap-4 w-full px-4">
+                <div className="flex flex-col gap-1 w-full">
+                  <label className="text-xs font-bold text-indigo-400">First Name</label>
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className="h-10 w-full bg-zinc-700 px-4 focus:outline-2 focus:outline-purple-500 text-sm rounded-2xl font-bold"
+                    {...register("fName", {
+                      required: { value: true, message: "Required" },
+                      minLength: { value: 3, message: "Min 3 chars" },
+                      maxLength: { value: 8, message: "Max 8 chars" },
+                    })}
+                  />
+                  {errors.fName && <span className="text-red-500 text-[10px]">{errors.fName.message}</span>}
+                </div>
+
+                <div className="flex flex-col gap-1 w-full">
+                  <label className="text-xs font-bold text-indigo-400">Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className="h-10 w-full bg-zinc-700 px-4 focus:outline-2 focus:outline-purple-500 text-sm rounded-2xl font-bold"
+                    {...register("lName", {
+                      required: { value: true, message: "Required" },
+                      minLength: { value: 3, message: "Min 3 chars" },
+                      maxLength: { value: 8, message: "Max 8 chars" },
+                    })}
+                  />
+                  {errors.lName && <span className="text-red-500 text-[10px]">{errors.lName.message}</span>}
+                </div>
               </div>
 
-              <div className="flex">
-                <span className="md:text-[12px] text-[8px] md:w-25 w-12 flex items-center  justify-center font-bold text-indigo-400">
-                  E-Mail:
-                </span>
+              {/* Email */}
+              <div className="flex flex-col gap-1 w-full px-4">
+                <label className="text-xs font-bold text-indigo-400">E-Mail</label>
                 <input
                   type="text"
                   placeholder="Email"
-                  className="md:h-[30px] h-[20px] md:w-[270px] w-[135px] bg-zinc-700 placeholder:md:px-4 md:px-4 px-2 focus:outline-3 focus:outline-purple-500 md:text-[14px] text-[7px] rounded-2xl placeholder:font-bold font-bold"
+                  className="h-10 w-full bg-zinc-700 px-4 focus:outline-2 focus:outline-purple-500 text-sm rounded-2xl font-bold"
                   {...register("email", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                    pattern: { value: /@/, message: "Must contain @ symbol" },
-                    minLength: { value: 3, message: "Min length is 3" },
-                    maxLength: { value: 30, message: "Max length is 30" },
+                    required: { value: true, message: "Required" },
+                    pattern: { value: /@/, message: "Must contain @" },
+                    minLength: { value: 3, message: "Min 3 chars" },
+                    maxLength: { value: 30, message: "Max 30 chars" },
                   })}
                 />
-                {errors.email && (
-                  <div className="text-red-500 flex items-center justify-center text-[13px] pl-3">
-                    {errors.email.message}
-                  </div>
-                )}
+                {errors.email && <span className="text-red-500 text-[10px]">{errors.email.message}</span>}
               </div>
 
-              <div className="flex">
-                <span className="md:text-[18px] text-[9px] md:w-25 w-12 flex items-center justify-start font-bold text-indigo-400">
-                  Message:
-                </span>
+              {/* Message */}
+              <div className="flex flex-col gap-1 w-full px-4">
+                <label className="text-xs font-bold text-indigo-400">Message</label>
                 <textarea
                   placeholder="Your Message"
-                  className="md:h-[100px] h-[50px] md:w-[300px] w-[140px] bg-zinc-700 px-4 py-4 focus:outline-3 focus:outline-purple-500 font-bold rounded-2xl placeholder:text-[10px] placeholder:md:font-bold md:text-[13px] text-[6px] resize-none"
+                  className="h-28 w-full bg-zinc-700 px-4 py-3 focus:outline-2 focus:outline-purple-500 font-bold rounded-2xl text-sm resize-none"
                   {...register("message", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                    minLength: { value: 3, message: "Min:3 Words" },
-                    maxLength: { value: 200, message: "Word Limit: 200" },
+                    required: { value: true, message: "Required" },
+                    minLength: { value: 3, message: "Min 3 chars" },
+                    maxLength: { value: 200, message: "Max 200 chars" },
                   })}
                 />
-                {errors.message && (
-                  <div className="text-red-500 flex items-center justify-center text-[13px] pl-3">
-                    {errors.message.message}
-                  </div>
-                )}
+                {errors.message && <span className="text-red-500 text-[10px]">{errors.message.message}</span>}
               </div>
 
-              {isSubmitting && (
-                <div>
-                  <button className="disabled:hidden disabled:cursor-not-allowed disabled:bg-gray-300 md:w-40 md:h-10 w-20 h-5 md:text-[25px] text-[10px] cursor-pointer bg-yellow-300 font-bold hover:bg-yellow-500 text-black hover:w-42 transition-all duration-300 ease-in-out">
-                    Submitting...
-                  </button>
-                </div>
-              )}
-
+              {/* Submit Button */}
               <button
                 disabled={isSubmitting}
-                className="disabled:hidden disabled:cursor-not-allowed disabled:bg-gray-300 md:w-32 w-16 md:h-10 h-5 cursor-pointer bg-yellow-300 font-bold hover:bg-yellow-500 text-black hover:md:w-42 hover:w-21 transition-all duration-300 ease-in-out md:text-[30px] text-[15px]"
+                className="w-32 h-10 cursor-pointer bg-yellow-300 font-bold hover:bg-yellow-500 text-black hover:w-40 transition-all duration-300 ease-in-out text-lg disabled:opacity-50 disabled:cursor-not-allowed rounded-lg"
               >
-                Submit
+                {isSubmitting ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>
 
+          {/* Image Side */}
           <div
-            className="image md:w-1/2 w-[50%]  md:top-0 justify-center items-center flex  "
+            className="image w-full lg:w-[40%] flex justify-center items-center"
             style={getContactAnimationStyle(150)}
           >
-            <img src="team2.jpg" alt="Join US" className="w-full md:h-[650px] h-[325px]" />
+            <img src="team2.jpg" alt="Join US" className="w-full max-h-[500px] object-cover rounded-2xl" />
           </div>
+
         </div>
 
         <div className="w-[90vw] bg-zinc-700 rounded-4xl  h-[1px] md:mt-40 mt-10  mb-10 flex justify-center items-center m-auto"></div>
+
+        {/* FOOTER */}
         <div className=" w-full md:h-53 h-30 mt-4 p-3 md:mt-0  flex flex-col gap-6  items-center justify-center border-red-600 bg-zinc-900">
           <div className=" font-bold md:text-[24px] text-[12px]">Find Me On :</div>
           <div className=" md:gap-3 gap-1  w-[70%] h-16 flex items-center justify-center">

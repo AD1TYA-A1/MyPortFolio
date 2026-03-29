@@ -1,152 +1,111 @@
-
 import React, { useState, useEffect, useRef } from "react";
 
 const About = () => {
   const [scrollY, setScrollY] = useState(0);
   const aboutRef = useRef(null);
-  const [elementTop, setElementTop] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      if (aboutRef.current) {
-        const rect = aboutRef.current.getBoundingClientRect();
-        const elementTop = window.scrollY + rect.top;
-        setElementTop(elementTop);
-      }
-    };
-
-    const handleResize = () => {
-      if (aboutRef.current) {
-        const rect = aboutRef.current.getBoundingClientRect();
-        const elementTop = window.scrollY + rect.top;
-        setElementTop(elementTop);
-      }
-    };
-
-    // Initial setup
+    const handleScroll = () => setScrollY(window.scrollY);
     handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Calculate relative scroll position for this component
-  // Animation starts at 650px and ends at 900px
   const getRelativeScroll = () => {
-    const startScroll = 700; // Start animations at 650px scroll
-    const endScroll = 1300;   // End animations at 900px scroll
-    
-    if (scrollY < startScroll) return 0; // No animation before 650px
-    if (scrollY > endScroll) return endScroll - startScroll; // Max animation after 900px
-    
-    return scrollY - startScroll; // Animation progress between 650-900px
+    const startScroll = 700;
+    const endScroll = 1300;
+    if (scrollY < startScroll) return 0;
+    if (scrollY > endScroll) return endScroll - startScroll;
+    return scrollY - startScroll;
   };
 
-  // Fast scroll effect for heading
   const getHeadingTransformStyle = () => {
     const relativeScroll = getRelativeScroll();
     const scrollFactor = relativeScroll * 0.8;
-    const opacity = Math.max(0, 1 - relativeScroll / 200); // Fade out over 200px
-    const scale = Math.max(0.5, 1 - relativeScroll / 150); // Scale down over 150px
-    
+    const opacity = Math.max(0, 1 - relativeScroll / 200);
+    const scale = Math.max(0.5, 1 - relativeScroll / 150);
     return {
       transform: `translateY(-${scrollFactor}px) scale(${scale})`,
-      opacity: opacity,
-      transition: 'all 0.05s ease-out'
+      opacity,
+      transition: "all 0.05s ease-out",
     };
   };
 
-  // Fast scroll effect for service blocks
   const getBlockTransformStyle = (delay = 0) => {
     const relativeScroll = Math.max(0, getRelativeScroll() - delay);
     const scrollFactor = relativeScroll * 0.6;
-    const opacity = Math.max(0, 1 - relativeScroll / 150); // Fade out over 150px
-    const scale = Math.max(0.6, 1 - relativeScroll / 200); // Scale down over 200px
-    
+    const opacity = Math.max(0, 1 - relativeScroll / 150);
+    const scale = Math.max(0.6, 1 - relativeScroll / 200);
     return {
       transform: `translateY(-${scrollFactor}px) scale(${scale})`,
-      opacity: opacity,
-      transition: 'all 0.05s ease-out'
+      opacity,
+      transition: "all 0.05s ease-out",
     };
   };
 
+  const services = [
+    {
+      title: "DESIGN",
+      desc: "I build beautiful, responsive web experiences using Tailwind CSS, Bootstrap, and modern UI/UX principles. From wireframes to pixel-perfect interfaces, I create digital products that look stunning and work flawlessly.",
+      sub: "Clean code. Beautiful design. Seamless user experience.",
+      delay: 100,
+    },
+    {
+      title: "DEVELOPMENT",
+      desc: "I build full-stack applications with Next.js, from database design to secure API integrations. Expert in backend systems, authentication, and performance optimization.",
+      sub: "End-to-end solutions. Secure backends.",
+      delay: 150,
+    },
+    {
+      title: "MAINTENANCE",
+      desc: "I provide ongoing website maintenance, security updates, and performance monitoring. Keeping your digital assets running smoothly with regular backups, bug fixes, and feature enhancements.",
+      sub: "Always updated. Always secure. Always performing.",
+      delay: 200,
+    },
+  ];
+
   return (
     <>
-      <div ref={aboutRef} className=" lg:h-[80vh] h-[800px] flex flex-col items-center gap-10">
-        <div 
-          className="mt-5 lg:text-3xl text-[16px] border-5 tracking-[6px] lg:w-72 w-50 font-bold lg:h-16  h-10 flex items-center justify-center"
+      <div ref={aboutRef} className="flex flex-col items-center gap-8 py-10 px-4">
+        {/* Heading */}
+        <div
+          className="text-xl sm:text-2xl lg:text-3xl border-5 tracking-[6px] w-40 sm:w-52 lg:w-72 font-bold h-10 lg:h-16 flex items-center justify-center"
           style={getHeadingTransformStyle()}
         >
           ABOUT ME
         </div>
-        <div 
-          className="lg:w-[70vw] w-[40vw]  lg:text-[13px] text-[8px] flex items-center justify-center text-center"
+
+        {/* Bio */}
+        <div
+          className="max-w-2xl text-center text-[10px] sm:text-sm lg:text-[13px] px-4"
           style={getBlockTransformStyle(50)}
         >
           Hey I am Aditya Gaur. I will write more here
         </div>
-        <div className="w-[75vw] gap-10 h-[120vh] flex flex-col justify-center items-center">
-          <div className="w-[90%] h-[80%] flex justify-evenly items-center">
-            <div 
-              className="  flex flex-col  gap-5 items-center justify-center lg:w-[40%] w-[50%] h-[100%]"
-              style={getBlockTransformStyle(100)}
+
+        {/* Service Cards */}
+        <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 mt-4">
+          {services.map((service) => (
+            <div
+              key={service.title}
+              className="flex flex-col gap-4 items-center justify-start bg-zinc-900 rounded-2xl p-6 text-center"
+              style={getBlockTransformStyle(service.delay)}
             >
-              <div className="font-bold lg:tracking-[12px] tracking-[6px] lg:text-[24px] text-[12px] text-yellow-500">
-                DESIGN
+              <div className="font-bold tracking-[6px] lg:tracking-[10px] text-base lg:text-xl text-yellow-500">
+                {service.title}
               </div>
-              <div className="lg:text-[15px]  text-[10px] font-bold text-center h-[140px]  text-yellow-200">
-                I build beautiful, responsive web experiences using Tailwind
-                CSS, Bootstrap, and modern UI/UX principles. From wireframes to
-                pixel-perfect interfaces, I create digital products that look
-                stunning and work flawlessly.
+              <div className="text-xs sm:text-sm lg:text-[15px] font-bold text-yellow-200 leading-relaxed">
+                {service.desc}
               </div>
-              <div className="font-bold lg:text-[12px] text-[7px] text-center text-gray-400">
-                Clean code. Beautiful design. Seamless user experience.
+              <div className="text-[10px] sm:text-xs font-bold text-gray-400 mt-auto">
+                {service.sub}
               </div>
             </div>
-            <div 
-              className="  flex  pb-3 flex-col gap-5 items-center relative top-2 justify-center  w-[50%] h-[100%]"
-              style={getBlockTransformStyle(150)}
-            >
-              <div className="  font-bold lg:tracking-[6px] tracking-[3px] lg:text-[24px] text-[13px] text-yellow-500">
-                DEVELOPMENT
-              </div>
-              <div className="lg:text-[15px] text-[10px] font-bold text-center h-[140px] text-yellow-200">
-                I build full-stack applications with Next.js, from database
-                design to secure API integrations. Expert in backend systems,
-                authentication, and performance optimization.
-              </div>
-              <div className="font-extrabold lg:text-[12px] text-[7px] text-center text-gray-400">
-                End-to-end solutions. Secure backends.
-              </div>
-            </div>
-          </div>
-          <div className="w-[90%] h-[80%] flex justify-center ">
-            <div 
-              className="flex flex-col gap-5 items-center justify-center w-[40%] h-[100%]"
-              style={getBlockTransformStyle(200)}
-            >
-              <div className="font-bold lg:tracking-[12px] tracking-[6px] lg:text-[24px] text-[12px]  text-yellow-500">
-                MAINTENANCE
-              </div>
-              <div className="lg:text-[15px] text-[10px] font-bold text-center  lg:h-[100px] h-[180px] text-yellow-200">
-                I provide ongoing website maintenance, security updates, and performance monitoring. Keeping your digital assets running smoothly with regular backups, bug fixes, and feature enhancements.
-              </div>
-              <div className="font-extrabold lg:text-[12px] text-[7px] text-center flex items-center justify-center text-gray-400">
-                Always updated. Always secure. Always performing.
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-      <div className="w-[90vw] bg-zinc-700 rounded-4xl h-[1px] lg:mt-40 mt-10 lg:mb-20 mb-5 flex justify-center items-center m-auto"></div>
+
+      <div className="w-[90vw] bg-zinc-700 rounded-4xl h-[1px] mt-10 lg:mt-20 mb-5 lg:mb-10 mx-auto"></div>
     </>
   );
 };
