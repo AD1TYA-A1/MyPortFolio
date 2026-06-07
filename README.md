@@ -139,6 +139,7 @@ Edit the configuration files in the project to add your personal information:
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+More Work is in Progress!
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
